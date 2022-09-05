@@ -37,7 +37,13 @@ class TodoController extends Controller
      */
     public function store(StoreTodoRequest $request)
     {
-        return Todo::create($request);
+        return Todo::create([
+            'description' => $request->description,
+            'state' => $request->state,
+            'project_id' => $request->project_id,
+            'user_id' => $request->user_id,
+            'views' => 0
+        ]);
     }
 
     /**
@@ -48,7 +54,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        return $todo;
+        return response($todo);
     }
 
     /**

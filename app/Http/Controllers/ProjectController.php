@@ -15,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        return Project::latest()->get();
     }
 
     /**
@@ -36,7 +36,9 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        return Project::create([
+            'name' => $request->name
+        ]);
     }
 
     /**
@@ -47,7 +49,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return response($project);
     }
 
     /**
