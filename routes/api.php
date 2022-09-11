@@ -23,6 +23,7 @@ use \App\Http\Controllers\ProjectController;
 Route::get('/todos', [TodoController::class, 'index'])->name('todo.index');
 Route::get('/todos/{todo}', [TodoController::class, 'show'])->name('todo.show');
 Route::post('/todos', [TodoController::class, 'store'])->name('todo.store');
+Route::post('/todos/{todo}', [TodoController::class, 'update'])->name('todo.update');
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
 Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('project.show');

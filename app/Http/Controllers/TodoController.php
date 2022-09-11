@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
 use App\Models\Todo;
+use Illuminate\Support\Facades\Auth;
 use function Symfony\Component\Mime\Header\get;
 
 class TodoController extends Controller
@@ -16,7 +17,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return Todo::latest()->get();
+        return Todo::where(['user_id' => 1])->get(); // should be Auth::id() when user authentication is available
     }
 
     /**
@@ -41,8 +42,8 @@ class TodoController extends Controller
             'description' => $request->description,
             'state' => $request->state,
             'project_id' => $request->project_id,
-            'user_id' => $request->user_id,
-            'views' => 0
+            'user_id' => Auth::id,
+            'views' => $request->views
         ]);
     }
 
@@ -77,7 +78,9 @@ class TodoController extends Controller
      */
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
-        //
+        $todo->fill($request->toArray());
+        $todo->save();
+        return response($todo);
     }
 
     /**
